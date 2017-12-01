@@ -1,6 +1,27 @@
 package jarvis.dictionaryMethod.entity;
 
-import jarvis.dictionaryMethod.entity.interfaces.Meaning;
+public class Word extends Meaning {
+    String value;
 
-public class Word implements Meaning {
+    public Word() {
+    }
+
+    public Word(String value) {
+        this.value = value;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    @Override
+    public String toString() {
+        return "Word{" +
+                "value='" + value + '\'' +
+                '}';
+    }
 }

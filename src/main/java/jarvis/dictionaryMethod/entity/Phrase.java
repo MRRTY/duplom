@@ -1,6 +1,27 @@
 package jarvis.dictionaryMethod.entity;
 
-import jarvis.dictionaryMethod.entity.interfaces.Meaning;
+public class Phrase extends  Meaning {
+    String value;
 
-public class Phrase implements Meaning {
+    public Phrase() {
+    }
+
+    public Phrase(String value) {
+        this.value = value;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    @Override
+    public String toString() {
+        return "Phrase{" +
+                "value='" + value + '\'' +
+                '}';
+    }
 }

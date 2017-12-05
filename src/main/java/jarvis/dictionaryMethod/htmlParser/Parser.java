@@ -65,23 +65,34 @@ public class Parser {
 
 
     public Tree getTreeFromURL(String url) throws IOException {
-//        Proxy proxy = new Proxy(                                      //
-//                Proxy.Type.HTTP,                                      //
-//                InetSocketAddress.createUnresolved("185.61.254.53", 53281) //
-//        );
+        Proxy proxy = new Proxy(                                      //
+                Proxy.Type.HTTP,                                      //
+                InetSocketAddress.createUnresolved("185.13.228.124", 1009) //
+        );
         Document doc = Jsoup
                 .connect(BASE_URL+url)
-                //.proxy(proxy)
+                .proxy(proxy)
                 .get();
         Element elem = doc.select("#m_text").first();
         elem.select("#uSocial").remove();
         elem.select("#com_none").remove();
         String temp = doc.select("h1").first().text();
         elem.select("b").remove();
-        String[] vals = elem.text().replaceAll("\\(.*?\\)", "").replaceAll("[-+.^:,;]", "").trim().split(" .");
+        String text = elem
+                .text()
+                .replaceAll("\\(.*?\\)", "")
+                .replaceAll("[+.^:!,;]", "")
+                .trim();
+        String[] vals = text.split(" ");
+        System.out.println(Arrays.toString(vals));
         Set<Meaning> meanings = new HashSet<>();
-        Arrays.stream(vals).forEach(val->meanings.add(new Word(val)));
-        return new Tree(temp.toLowerCase(),meanings);
+        Arrays.stream(vals).forEach(val->{
+            if(val.length()>=2)
+            meanings.add(new Word(val));
+        });
+        Tree res = new Tree(temp.toLowerCase(),meanings);
+        System.out.println(res);
+        return res;
     }
 
     public Forest getForest() throws IOException, InterruptedException {
@@ -97,7 +108,6 @@ public class Parser {
         for(String url: urls){
             System.out.println(url);
                 forest.getTreeSet().add(getTreeFromURL(url));
-                Thread.currentThread().sleep(250);
             System.out.println("Done!");
 
         }

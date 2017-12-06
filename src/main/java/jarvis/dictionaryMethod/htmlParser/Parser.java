@@ -21,13 +21,15 @@ import java.net.InetSocketAddress;
 import java.net.Proxy;
 import java.net.URL;
 import java.util.*;
+import java.util.concurrent.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class Parser {
     private static final String BASE_URL = "https://ukrainskamova.com";
-
+    private Set<String> links;
+    private List<ProxyImpl> proxies;
     public Set<String> getAllWords() throws IOException {
         Set<String> res = new HashSet<>();
         try {
@@ -64,10 +66,11 @@ public class Parser {
     }
 
 
-    public Tree getTreeFromURL(String url) throws IOException {
+    public Tree getTreeFromURL(String url, ProxyImpl myProxy) throws IOException {
+        System.out.println(url+" "+Thread.currentThread().getName());
         Proxy proxy = new Proxy(                                      //
                 Proxy.Type.HTTP,                                      //
-                InetSocketAddress.createUnresolved("185.13.228.124", 1009) //
+                InetSocketAddress.createUnresolved(myProxy.getUrl(), myProxy.getPort()) //
         );
         Document doc = Jsoup
                 .connect(BASE_URL+url)
@@ -95,31 +98,98 @@ public class Parser {
         return res;
     }
 
-    public Forest getForest() throws IOException, InterruptedException {
+    public void getLinks() throws IOException, InterruptedException {
         CollectionType typeReference = TypeFactory.defaultInstance().constructCollectionType(Set.class, String.class);
         ObjectMapper mapper = new ObjectMapper();
-        Set<String> urls = mapper.readValue(new File("D:/test/1.json"),typeReference);
-        urls.addAll(mapper.readValue(new File("D:/test/2.json"),typeReference));
-        System.out.println(urls.stream().distinct().collect(Collectors.toSet()).size());
-        Forest forest = new Forest();
-        forest.setTreeSet(new HashSet<>());
-        try {
+        links = mapper.readValue(new File("c:/test/1.json"),typeReference);
+        links.addAll(mapper.readValue(new File("c:/test/2.json"),typeReference));
+        System.out.println(links.stream().distinct().collect(Collectors.toSet()).size());
 
-        for(String url: urls){
-            System.out.println(url);
-                forest.getTreeSet().add(getTreeFromURL(url));
-            System.out.println("Done!");
-
-        }
-
-            return forest;
-        }catch (HttpStatusException ex){
-
-            return forest;
-        }
     }
+
+    public Forest getForest(){
+        Forest forest = new Forest();
+        Set<Tree> res = new HashSet<>() ;
+        List<Callable<Tree>> callables = new ArrayList<>();
+        for (String link: links){
+            callables.add(new Callable<Tree>() {
+                @Override
+                public Tree call() throws Exception {
+
+                    return getTreeFromURL(link,getRandomProxy());
+                }
+            });
+        }
+
+        ExecutorService executor = Executors.newFixedThreadPool(10);
+        try {
+            res = executor.invokeAll(callables).stream().map(f -> {
+                try {
+                    return f.get();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }).collect(Collectors.toSet());
+        } catch (InterruptedException  ex) {
+            System.out.println(ex.getMessage());
+        }
+        forest.setTreeSet(res);
+        return forest;
+    }
+
+    private ProxyImpl getRandomProxy() {
+        Random random = new Random();
+        int n = random.nextInt(proxies.size());
+        return proxies.get(n);
+
+    }
+
+
     public void saveForestToJson(Forest forest, File jsonFile) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         mapper.writeValue(jsonFile, forest);
+    }
+
+
+
+    public void setLinks(Set<String> links) {
+        this.links = links;
+    }
+
+    public List<ProxyImpl> getProxies() {
+        return proxies;
+    }
+
+    public void setProxies(List<ProxyImpl> proxies) {
+        this.proxies = proxies;
+    }
+
+    public static class ProxyImpl{
+        private String url;
+        private int port;
+
+        public ProxyImpl(String url, int port) {
+            this.url = url;
+            this.port = port;
+        }
+
+        public String getUrl() {
+            return url;
+        }
+
+        public void setUrl(String url) {
+            this.url = url;
+        }
+
+        public int getPort() {
+            return port;
+        }
+
+        public void setPort(int port) {
+            this.port = port;
+        }
     }
 }

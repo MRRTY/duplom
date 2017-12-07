@@ -12,5 +12,10 @@ import org.codehaus.jackson.annotate.*;
 public abstract class Meaning {
     Meaning(){
     }
+    abstract public int getSize();
+
+    public abstract String getValue();
+
+    public abstract void setValue(String value);
 
 }

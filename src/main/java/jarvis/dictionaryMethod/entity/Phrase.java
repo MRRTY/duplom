@@ -6,6 +6,11 @@ public class Phrase extends  Meaning {
     public Phrase() {
     }
 
+    @Override
+    public int getSize() {
+        return 0;
+    }
+
     public Phrase(String value) {
         this.value = value;
     }

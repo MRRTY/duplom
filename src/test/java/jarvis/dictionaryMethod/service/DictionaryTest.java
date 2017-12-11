@@ -2,6 +2,8 @@ package jarvis.dictionaryMethod.service;
 
 import jarvis.dictionaryMethod.entity.Meaning;
 import jarvis.dictionaryMethod.entity.Word;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.File;
@@ -15,6 +17,7 @@ public class DictionaryTest {
 
 
     @Test
+    @Ignore
     public void createDictionary() throws IOException {
 
         Dictionary dictionary = new Dictionary(new File("D:/test/db.json"));
@@ -23,7 +26,7 @@ public class DictionaryTest {
         dictionary.getForest().getTreeSet().forEach(tree -> {
             tree.getNet().remove(null);
             Set<Meaning> toDelete = new HashSet<>();
-          
+
             tree.getNet().forEach(meaning -> {
                 if(meaning.getValue().length()<=2 || meaning.getValue().charAt(0)=="-".charAt(0) || meaning.getValue().charAt(meaning.getSize()-1)=="-".charAt(0)) {
                     toDelete.add(meaning);
@@ -45,15 +48,9 @@ public class DictionaryTest {
         });
 
         System.out.println(dictionary.getAllMeanings().size());
+
         List<Meaning> res = new ArrayList<>(dictionary.getAllMeanings());
-        res.sort(new Comparator<Meaning>() {
-            @Override
-            public int compare(Meaning o1, Meaning o2) {
-                Word obj1 = (Word) o1;
-                Word obj2 = (Word) o2;
-                return obj1.getValue().length()- obj2.getValue().length();
-            }
-        });
+        res.sort(Comparator.comparingInt(o -> o.getValue().length()));
 
         System.out.println(res);
     }
@@ -67,6 +64,19 @@ public class DictionaryTest {
         System.out.println(set1.size());
         System.out.println(set2.size());
         System.out.println(Dictionary.intersectionOfSets(set1,set2).size());
+
+    }
+    @Test
+    public void check() throws IOException {
+        Dictionary dictionary = new Dictionary(new File("D:/test/db.json"));
+        dictionary.checkForEquals("Великий ліс", "Здорове дерево");
+
+    }
+
+    @Test
+    public void findRoot() throws IOException {
+        Dictionary dictionary = new Dictionary(new File("D:/test/db.json"));
+        System.out.println(dictionary.findRoot("здорове"));
 
     }
 

@@ -17,12 +17,12 @@ public class SentenceManager {
 
     public Sentence createSentence(String sentence){
         List<String> words = Arrays.asList(sentence.split(" "));
-        System.out.println(words);
+
         words = words.stream().map(word->word.replaceAll("[^A-Za-z0-9]+","")).collect(Collectors.toList());
-        System.out.println(words);
+
 
         words = words.stream().filter(word -> word.length()>2).collect(Collectors.toList());
-        System.out.println(words);
+
         return new Sentence(words);
     }
     public int getRating(){

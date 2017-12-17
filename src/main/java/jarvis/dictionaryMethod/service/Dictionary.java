@@ -50,11 +50,12 @@ public class Dictionary {
 
     private int getMaxMatch(int[][] resMatrix) {
         int[] res = new int[resMatrix.length];
-        for(int i = 0; i <res.length; i++){
+        for(int i = 0; i <res.length; i++) {
             int sum = resMatrix[i][0];
-            
+
 
         }
+        return res[0];
     }
 
     private int getRating(String s1, String s2) {

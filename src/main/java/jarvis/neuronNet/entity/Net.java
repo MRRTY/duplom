@@ -1,18 +1,46 @@
 package jarvis.neuronNet.entity;
 
-import jarvis.neuronNet.service.NeuronManager;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Net {
-    private NeuronManager neuronManager = NeuronManager.getInstance();
+    private List<Layer> layers;
+    private List<Synapse> allSynapses;
 
     public Net() {
+        layers = new ArrayList<>();
+        allSynapses = new ArrayList<>();
     }
 
-    public NeuronManager getNeuronManager() {
-        return neuronManager;
+    @Override
+    public String toString() {
+        return "Net{" +
+                "layers=" + layers +
+                ", allSynapses=" + allSynapses +
+                '}';
     }
 
-    public void setNeuronManager(NeuronManager neuronManager) {
-        this.neuronManager = neuronManager;
+    public List<Synapse> getAllSynapses() {
+        return allSynapses;
     }
+
+    public void setAllSynapses(List<Synapse> allSynapses) {
+        this.allSynapses = allSynapses;
+    }
+
+    public Layer getInputLayer(){
+        return layers.get(0);
+    }
+    public Layer getOutputLayer(){
+        return layers.get(layers.size()-1);
+    }
+    public List<Layer> getLayers() {
+        return layers;
+    }
+
+    public void setLayers(List<Layer> layers) {
+        this.layers = layers;
+    }
+
+
 }

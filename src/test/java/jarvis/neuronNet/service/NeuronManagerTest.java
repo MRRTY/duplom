@@ -1,27 +1,55 @@
 package jarvis.neuronNet.service;
 
-import jarvis.neuronNet.entity.Neuron;
-import jarvis.neuronNet.entity.type.NeuronType;
+import jarvis.neuronNet.entity.Net;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 public class NeuronManagerTest {
 
     @Test
     public void createDefaultNet() {
-        NeuronManager manager = new NeuronManager();
-        Neuron n1 = manager.createAndReturnNeuron(NeuronType.INPUT);
-        Neuron n2 = manager.createAndReturnNeuron(NeuronType.INPUT);
-        Neuron n3 = manager.createAndReturnNeuron(NeuronType.OUTPUT);
-        Neuron n4 = manager.createAndReturnNeuron(NeuronType.OUTPUT);
-        manager.addSynapse(n3,n1);
-        manager.addSynapse(n4,n1);
-        manager.addSynapse(n3,n2);
-        manager.addSynapse(n4,n2);
-
-
+      NetManager nm = new NetManager(new Net());
+      nm.createNeurons(new int[]{2,4,1});
+        System.out.println(nm.toString());
+        nm.learn(new double[]{0.70,0.6}, new double[]{1});
+        nm.learn(new double[]{1,1}, new double[]{1});
+        nm.learn(new double[]{0.44,0.23}, new double[]{1});
+        nm.learn(new double[]{0.50,0.4}, new double[]{1});
+        nm.learn(new double[]{0.7,0.3}, new double[]{1});
+        nm.learn(new double[]{1,1}, new double[]{1});
+        nm.learn(new double[]{0.12,0.10}, new double[]{0});
+        nm.learn(new double[]{0.05,0}, new double[]{0});
+        nm.learn(new double[]{0.05,0.05}, new double[]{0});
+        nm.learn(new double[]{0.70,0.6}, new double[]{1});
+        nm.learn(new double[]{1,1}, new double[]{1});
+        nm.learn(new double[]{0.44,0.23}, new double[]{1});
+        nm.learn(new double[]{0.50,0.4}, new double[]{1});
+        nm.learn(new double[]{0.7,0.3}, new double[]{1});
+        nm.learn(new double[]{1,1}, new double[]{1});
+        nm.learn(new double[]{0.12,0.10}, new double[]{0});
+        nm.learn(new double[]{0.05,0}, new double[]{0});
+        nm.learn(new double[]{0.05,0.05}, new double[]{0});
+        nm.learn(new double[]{0.70,0.6}, new double[]{1});
+        nm.learn(new double[]{1,1}, new double[]{1});
+        nm.learn(new double[]{0.44,0.23}, new double[]{1});
+        nm.learn(new double[]{0.50,0.4}, new double[]{1});
+        nm.learn(new double[]{0.7,0.3}, new double[]{1});
+        nm.learn(new double[]{1,1}, new double[]{1});
+        nm.learn(new double[]{0.12,0.10}, new double[]{0});
+        nm.learn(new double[]{0.05,0}, new double[]{0});
+        nm.learn(new double[]{0.05,0.05}, new double[]{0});
+        nm.learn(new double[]{0.70,0.6}, new double[]{1});
+        nm.learn(new double[]{1,1}, new double[]{1});
+        nm.learn(new double[]{0.44,0.23}, new double[]{1});
+        nm.learn(new double[]{0.50,0.4}, new double[]{1});
+        nm.learn(new double[]{0.7,0.3}, new double[]{1});
+        nm.learn(new double[]{1,1}, new double[]{1});
+        nm.learn(new double[]{0.12,0.10}, new double[]{0});
+        nm.learn(new double[]{0.05,0}, new double[]{0});
+        nm.learn(new double[]{0.05,0.05}, new double[]{0});
+        System.out.println(nm.toString());
+        System.out.println(nm.check(new double[]{1,1}));
     }
+
 
 
 }

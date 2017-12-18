@@ -69,7 +69,7 @@ public class DictionaryTest {
     @Test
     public void check() throws IOException {
         Dictionary dictionary = new Dictionary(new File("D:/test/db.json"));
-        dictionary.checkForEquals("Великий ліс", "Здорове дерево");
+        System.out.println(dictionary.checkForEquals("МЗС веде жодних переговорів екстрадиції Саакашвілі", "МЗС нічого знають таємні перемовини видачі Саакашвілі"));
 
     }
 
@@ -77,6 +77,23 @@ public class DictionaryTest {
     public void findRoot() throws IOException {
         Dictionary dictionary = new Dictionary(new File("D:/test/db.json"));
         System.out.println(dictionary.findRoot("здорове"));
+
+    }
+    @Test
+    public void clearArray() throws IOException {
+        Dictionary dictionary = new Dictionary(new File("D:/test/db.json"));
+        int[][] testArray = new int[][]{{1,2,3},{1,2,3}};
+        dictionary.clearColumnAndRow(testArray,1,1);
+        for (int i = 0; i < testArray.length; i++ ){
+            System.out.println(Arrays.toString(testArray[i]));
+        }
+
+    }
+    @Test
+    public void getMaxSum() throws IOException {
+        Dictionary dictionary = new Dictionary(new File("D:/test/db.json"));
+        int[][] testArray = new int[][]{{10,50,40},{60,40,1},{50,5,1},{30,40,50}};
+        System.out.println(dictionary.getMaxMatch(testArray));
 
     }
 

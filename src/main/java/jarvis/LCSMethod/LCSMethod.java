@@ -14,4 +14,9 @@ public class LCSMethod implements CheckingSentenceForEqualse {
         WordManager wordManager = new WordManager();
         return wordManager.getRating(first,second)>sureValue;
     }
+
+    public int getRatingForTwoWords(String s1, String s2) {
+        WordManager wordManager = new WordManager();
+        return wordManager.getRating(s1,s2);
+    }
 }

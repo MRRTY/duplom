@@ -5,6 +5,9 @@ public class Synapse {
     private Neuron leftNeuron;
     private Neuron rightNeuron;
 
+    public Synapse() {
+    }
+
     public Synapse(Neuron leftNeuron, Neuron rightNeuron) {
         this.leftNeuron = leftNeuron;
         this.rightNeuron = rightNeuron;

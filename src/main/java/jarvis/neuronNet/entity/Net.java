@@ -1,8 +1,11 @@
 package jarvis.neuronNet.entity;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@JsonIgnoreProperties(value = { "inputLayer","outputLayer" })
 public class Net {
     private List<Layer> layers;
     private List<Synapse> allSynapses;

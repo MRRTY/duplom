@@ -19,6 +19,8 @@ public class NetManager {
         this.net = net;
     }
 
+    public NetManager() {
+    }
 
     private double function(double value) {
         return 1/(1+Math.pow(Math.E,-3*value));
@@ -70,9 +72,8 @@ public class NetManager {
         }
 
         for(Synapse synapse: net.getAllSynapses()){
-            synapse.setWeight(0.07*deltas.get(synapse.getRightNeuron())*synapse.getLeftNeuron().getValue());
+            synapse.setWeight(0.07*deltas.get(synapse.getRightNeuron())*synapse.getLeftNeuron().getValue() + synapse.getWeight());
         }
-        System.out.println(deltas);
     }
 
     public double check(double[] input){
@@ -80,10 +81,11 @@ public class NetManager {
             throw new IllegalInputArgsException();
         }
         for(int i = 0; i<input.length; i++){
-            net.getLayers().get(0).getNeurons().get(i).setValue(input[i]);
+            net.getInputLayer().getNeurons().get(i).setValue(input[i]);
         }
         recount();
-        return net.getLayers().get(net.getLayers().size()-1).getNeurons().get(0).getValue();
+        System.out.println(net.getOutputLayer().getNeurons().get(0).getValue());
+        return net.getOutputLayer().getNeurons().get(0).getValue();
     }
     private List<Synapse> getSynapseWithLeftNeuron(Neuron neuron) {
         return net.getAllSynapses().stream().filter(synapse -> synapse.getLeftNeuron().equals(neuron)).collect(Collectors.toList());

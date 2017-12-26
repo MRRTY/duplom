@@ -61,7 +61,6 @@ public class NeuronManagerTest {
       System.out.println(nm.toString());
       ObjectMapper mapper = new ObjectMapper();
       try {
-
         mapper.writeValue(new File("neuron.json"), nm.getNet());
 
         nm.setNet(mapper.readValue(new File("neuron.json"),Net.class));

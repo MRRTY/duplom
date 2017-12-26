@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class,   property = "@id")
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class,   property = "id")
 public class Neuron {
     private double value;
 

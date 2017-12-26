@@ -3,7 +3,7 @@ package jarvis.neuronNet.entity;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
-@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class,   property = "@id")
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class,   property = "id")
 public class Synapse {
     private double weight;
     private Neuron leftNeuron;

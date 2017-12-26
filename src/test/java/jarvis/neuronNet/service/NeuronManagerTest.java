@@ -54,23 +54,19 @@ public class NeuronManagerTest {
         System.out.println(nm.toString());
 
       System.out.println(nm.check(new double[]{0.01,1}));
+      System.out.println(nm.toString());
       ObjectMapper mapper = new ObjectMapper();
-            try {
-        mapper.writeValue(new File("neuron.json"), nm.getNet());
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
       try {
+        mapper.writeValue(new File("neuron.json"), nm.getNet());
+
         nm.setNet(mapper.readValue(new File("neuron.json"),Net.class));
       } catch (IOException e) {
         e.printStackTrace();
      }
-
+      System.out.println(nm.toString());
+      System.out.println(nm.check(new double[]{1,1}));
       System.out.println(nm.toString());
 
-      System.out.println(nm.getNet().getOutputLayer().getNeurons().get(0));
-      System.out.println(nm.check(new double[]{0,0}));
-      System.out.println(nm.toString());
     }
 
 

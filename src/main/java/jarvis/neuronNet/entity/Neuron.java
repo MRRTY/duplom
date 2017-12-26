@@ -2,13 +2,15 @@ package jarvis.neuronNet.entity;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class Neuron {
-    private static int counter = 0;
+    private static AtomicInteger counter = new AtomicInteger(0);
     private double value;
     private int id;
 
     public Neuron() {
-        id = counter++;
+        id = counter.getAndIncrement();
     }
 
 
@@ -19,6 +21,8 @@ public class Neuron {
                 ", id=" + id +
                 '}';
     }
+
+
 
     public double getValue() {
         return value;

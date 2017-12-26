@@ -57,7 +57,7 @@ public class NetManager {
             throw new IllegalInputArgsException();
         }
         for(int i = 0; i<input.length; i++){
-            net.getLayers().get(0).getNeurons().get(i).setValue(input[i]);
+            net.getInputLayer().getNeurons().get(i).setValue(input[i]);
         }
         recount();
         Map<Neuron, Double> deltas = new HashMap<>();
@@ -84,7 +84,6 @@ public class NetManager {
             net.getInputLayer().getNeurons().get(i).setValue(input[i]);
         }
         recount();
-        System.out.println(net.getOutputLayer().getNeurons().get(0).getValue());
         return net.getOutputLayer().getNeurons().get(0).getValue();
     }
     private List<Synapse> getSynapseWithLeftNeuron(Neuron neuron) {
@@ -113,7 +112,7 @@ public class NetManager {
     }
     private double countForOneNeuron(Neuron neuron) {
         double res = 0;
-        List<Synapse> synapses = net.getAllSynapses().stream().filter(synapse -> synapse.getRightNeuron().equals(neuron)).collect(Collectors.toList());
+        List<Synapse> synapses = net.getAllSynapses().stream().filter(synapse -> synapse.getRightNeuron().getId() == neuron.getId()).collect(Collectors.toList());
         for(Synapse s: synapses){
             res+=s.getWeight()*s.getLeftNeuron().getValue();
         }

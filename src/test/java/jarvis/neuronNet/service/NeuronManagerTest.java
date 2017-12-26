@@ -66,7 +66,8 @@ public class NeuronManagerTest {
         nm.getNet().setAllSynapses(mapper.readValue(new File("neuron.json"),typeReference));
 
       } catch (IOException e) {
-        e.printStackTrace();
+
+        throw new RuntimeException();
      }
       System.out.println(nm.toString());
       System.out.println(nm.check(new double[]{1,1}));

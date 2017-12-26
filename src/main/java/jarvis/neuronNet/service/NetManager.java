@@ -93,7 +93,7 @@ public class NetManager {
     private void recount() {
         for (int i = 1; i < net.getLayers().size(); i++){
             for (Neuron neuron:net.getLayers().get(i).getNeurons()){
-                neuron.setValue(countForOneNeuron(neuron));
+                neuron.setValue(countForOneNeuron(neuron)); //
             }
         }
     }

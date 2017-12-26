@@ -1,16 +1,17 @@
 package jarvis.neuronNet.entity;
 
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class,   property = "id")
 public class Neuron {
-    private static AtomicInteger counter = new AtomicInteger(0);
     private double value;
-    private int id;
 
     public Neuron() {
-        id = counter.getAndIncrement();
+
     }
 
 
@@ -18,24 +19,10 @@ public class Neuron {
     public String toString() {
         return "Neuron{" +
                 "value=" + value +
-                ", id=" + id +
+
                 '}';
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Neuron neuron = (Neuron) o;
-
-        return id == neuron.id;
-    }
-
-    @Override
-    public int hashCode() {
-        return id;
-    }
 
     public double getValue() {
         return value;
@@ -45,11 +32,5 @@ public class Neuron {
         this.value = value;
     }
 
-    public int getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 }

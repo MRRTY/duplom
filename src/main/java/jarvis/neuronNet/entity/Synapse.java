@@ -22,6 +22,29 @@ public class Synapse {
                 '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Synapse synapse = (Synapse) o;
+
+        if (Double.compare(synapse.weight, weight) != 0) return false;
+        if (leftNeuron != null ? !leftNeuron.equals(synapse.leftNeuron) : synapse.leftNeuron != null) return false;
+        return rightNeuron != null ? rightNeuron.equals(synapse.rightNeuron) : synapse.rightNeuron == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        temp = Double.doubleToLongBits(weight);
+        result = (int) (temp ^ (temp >>> 32));
+        result = 31 * result + (leftNeuron != null ? leftNeuron.hashCode() : 0);
+        result = 31 * result + (rightNeuron != null ? rightNeuron.hashCode() : 0);
+        return result;
+    }
+
     public Neuron getRightNeuron() {
         return rightNeuron;
     }

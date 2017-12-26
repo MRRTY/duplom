@@ -112,7 +112,7 @@ public class NetManager {
     }
     private double countForOneNeuron(Neuron neuron) {
         double res = 0;
-        List<Synapse> synapses = net.getAllSynapses().stream().filter(synapse -> synapse.getRightNeuron().getId() == neuron.getId()).collect(Collectors.toList());
+        List<Synapse> synapses = net.getAllSynapses().stream().filter(synapse -> synapse.getRightNeuron().equals(neuron)).collect(Collectors.toList());
         for(Synapse s: synapses){
             res+=s.getWeight()*s.getLeftNeuron().getValue();
         }

@@ -1,11 +1,15 @@
 package jarvis.neuronNet.service;
 
 import jarvis.neuronNet.entity.Net;
+import jarvis.neuronNet.entity.Synapse;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.map.type.CollectionType;
+import org.codehaus.jackson.map.type.TypeFactory;
 import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 public class NeuronManagerTest {
 
@@ -57,9 +61,10 @@ public class NeuronManagerTest {
       System.out.println(nm.toString());
       ObjectMapper mapper = new ObjectMapper();
       try {
-        mapper.writeValue(new File("neuron.json"), nm.getNet());
+        mapper.writeValue(new File("neuron.json"), nm.getNet().getAllSynapses());
+        CollectionType typeReference = TypeFactory.defaultInstance().constructCollectionType(List.class, Synapse.class);
+        nm.getNet().setAllSynapses(mapper.readValue(new File("neuron.json"),typeReference));
 
-        nm.setNet(mapper.readValue(new File("neuron.json"),Net.class));
       } catch (IOException e) {
         e.printStackTrace();
      }

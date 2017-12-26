@@ -61,13 +61,14 @@ public class NeuronManagerTest {
       System.out.println(nm.toString());
       ObjectMapper mapper = new ObjectMapper();
       try {
-        mapper.writeValue(new File("neuron.json"), nm.getNet().getAllSynapses());
-        CollectionType typeReference = TypeFactory.defaultInstance().constructCollectionType(List.class, Synapse.class);
-        nm.getNet().setAllSynapses(mapper.readValue(new File("neuron.json"),typeReference));
+
+        mapper.writeValue(new File("neuron.json"), nm.getNet());
+
+        nm.setNet(mapper.readValue(new File("neuron.json"),Net.class));
 
       } catch (IOException e) {
 
-        throw new RuntimeException();
+        System.out.println(e.getMessage());
      }
       System.out.println(nm.toString());
       System.out.println(nm.check(new double[]{1,1}));

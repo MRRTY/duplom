@@ -6,9 +6,9 @@ import jarvis.interfaces.CheckingSentenceForEqualse;
 
 public class LCSMethod implements CheckingSentenceForEqualse {
 
-    public boolean isEquals(String first, String second, int sureValue) {
+    public double getResult(String first, String second) {
         SentenceManager sm = new SentenceManager(first,second);
-        return sm.getRating()>sureValue;
+        return sm.getRating();
     }
     public boolean wordsIsEquals(String first, String second, int sureValue){
         WordManager wordManager = new WordManager();

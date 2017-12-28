@@ -1,12 +1,12 @@
 package jarvis.dictionaryMethod.htmlParser;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.type.CollectionType;
+import com.fasterxml.jackson.databind.type.TypeFactory;
 import jarvis.dictionaryMethod.entity.Forest;
 import jarvis.dictionaryMethod.entity.Meaning;
 import jarvis.dictionaryMethod.entity.Tree;
 import jarvis.dictionaryMethod.entity.Word;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.map.type.CollectionType;
-import org.codehaus.jackson.map.type.TypeFactory;
 import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

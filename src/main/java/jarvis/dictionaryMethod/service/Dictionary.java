@@ -1,9 +1,10 @@
 package jarvis.dictionaryMethod.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jarvis.LCSMethod.LCSMethod;
 import jarvis.dictionaryMethod.entity.*;
 import jarvis.dictionaryMethod.exception.IncorrectFileException;
-import org.codehaus.jackson.map.ObjectMapper;
+
 
 
 import java.io.File;
@@ -29,7 +30,7 @@ public class Dictionary {
 
     }
 
-    public int checkForEquals(String first, String second){
+    public double checkForEquals(String first, String second){
         String[] firstArray = first.split(" ");
         String[] secondArray = second.split(" ");
         int resMatrix[][] = new int[firstArray.length][secondArray.length];

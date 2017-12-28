@@ -1,15 +1,10 @@
 package jarvis.neuronNet.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jarvis.neuronNet.entity.Net;
-import jarvis.neuronNet.entity.Synapse;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.map.type.CollectionType;
-import org.codehaus.jackson.map.type.TypeFactory;
 import org.junit.Test;
-
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 
 public class NeuronManagerTest {
 

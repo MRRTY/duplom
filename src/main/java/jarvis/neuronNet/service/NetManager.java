@@ -1,5 +1,6 @@
 package jarvis.neuronNet.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jarvis.dictionaryMethod.exception.IllegalInputArgsException;
 import jarvis.dictionaryMethod.exception.NotAllowedAgrsException;
 import jarvis.neuronNet.entity.Layer;
@@ -7,6 +8,8 @@ import jarvis.neuronNet.entity.Net;
 import jarvis.neuronNet.entity.Neuron;
 import jarvis.neuronNet.entity.Synapse;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +24,12 @@ public class NetManager {
 
     public NetManager() {
     }
+
+    public NetManager(String url) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        setNet(mapper.readValue(new File(url),Net.class));
+    }
+
 
     private double function(double value) {
         return 1/(1+Math.pow(Math.E,-3*value));

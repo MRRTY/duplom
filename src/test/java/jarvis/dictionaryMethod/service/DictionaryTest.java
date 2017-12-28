@@ -2,7 +2,6 @@ package jarvis.dictionaryMethod.service;
 
 import jarvis.dictionaryMethod.entity.Meaning;
 import jarvis.dictionaryMethod.entity.Word;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.Ignore;
 import org.junit.Test;
 
